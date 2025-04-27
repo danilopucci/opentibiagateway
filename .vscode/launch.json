@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+      {
+          "name": "Debug Core (gRPC server)",
+          "type": "go",
+          "request": "launch",
+          "mode": "auto",
+          "program": "${workspaceFolder}/cmd/core",
+          "env": {},
+          "args": []
+      },
+      {
+          "name": "Debug Internal API (HTTP server)",
+          "type": "go",
+          "request": "launch",
+          "mode": "auto",
+          "program": "${workspaceFolder}/cmd/internal-api",
+          "env": {},
+          "args": []
+      }
+  ],
+  "compounds": [
+      {
+          "name": "Debug Both (Core + Internal API)",
+          "configurations": [
+              "Debug Core (gRPC server)",
+              "Debug Internal API (HTTP server)"
+          ]
+      }
+  ]
+}

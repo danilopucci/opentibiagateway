@@ -21,7 +21,8 @@ vendor/
 *.tmp
 
 # Editor and IDE settings
-.vscode/
+.vscode/*
+!.vscode/launch.json
 .idea/
 *.swp
 *.swo
