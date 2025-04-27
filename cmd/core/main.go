@@ -1,12 +1,15 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"log"
+	"net"
 
+	gatewaypb "github.com/danilopucci/opentibiagateway/internal/protogen/v1"
 	"github.com/danilopucci/opentibiagateway/internal/provider/mysql"
 	"github.com/danilopucci/opentibiagateway/internal/service"
+	gatewayGrpcServer "github.com/danilopucci/opentibiagateway/internal/transport/grpc"
+	"google.golang.org/grpc"
 
 	"github.com/joho/godotenv"
 )
@@ -36,14 +39,21 @@ func main() {
 	playerRepository := mysql.NewMySQLPlayerRepository(mysqlDatabase)
 	playerService := service.NewPlayerService(playerRepository)
 
-	player, err := playerService.GetPlayerByID(context.Background(), 1)
+	// Setup gRPC server
+	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
-		log.Fatalf("Error fetching player: %v", err)
+		log.Fatalf("Failed to listen: %v", err)
 	}
 
-	if player == nil {
-		log.Fatalf("player not found\n")
+	s := grpc.NewServer()
+
+	grpcServer := gatewayGrpcServer.NewGrpcServer(playerService)
+
+	gatewaypb.RegisterPlayerServiceServer(s, grpcServer)
+
+	fmt.Println("gRPC server started on port 50051")
+	if err := s.Serve(lis); err != nil {
+		log.Fatalf("Failed to serve: %v", err)
 	}
 
-	fmt.Println("Hello, World!")
 }
