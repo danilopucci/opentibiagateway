@@ -1,0 +1,67 @@
+package grpc
+
+import (
+	"github.com/danilopucci/opentibiagateway/internal/domain"
+	playerpb "github.com/danilopucci/opentibiagateway/internal/protogen/v1"
+)
+
+// PlayerToProto converts domain Player -> gRPC PlayerResponse
+func PlayerToProto(player *domain.Player) *playerpb.Player {
+	return &playerpb.Player{
+		Id:                  player.ID,
+		Name:                player.Name,
+		GroupId:             player.GroupID,
+		AccountId:           player.AccountID,
+		Level:               player.Level,
+		Vocation:            player.Vocation,
+		Health:              player.Health,
+		Healthmax:           player.HealthMax,
+		Experience:          player.Experience,
+		Lookbody:            player.LookBody,
+		Lookfeet:            player.LookFeet,
+		Lookhead:            player.LookHead,
+		Looklegs:            player.LookLegs,
+		Looktype:            player.LookType,
+		Lookaddons:          player.LookAddons,
+		Maglevel:            player.MagicLevel,
+		Mana:                player.Mana,
+		Manamax:             player.ManaMax,
+		Manaspent:           player.ManaSpent,
+		Soul:                player.Soul,
+		TownId:              player.TownID,
+		Posx:                player.PosX,
+		Posy:                player.PosY,
+		Posz:                player.PosZ,
+		Conditions:          player.Conditions,
+		Cap:                 player.Cap,
+		Sex:                 player.Sex,
+		Lastlogin:           player.LastLogin,
+		Lastip:              player.LastIP,
+		Save:                player.Save,
+		Skull:               player.Skull,
+		Skulltime:           player.SkullTime,
+		Lastlogout:          player.LastLogout,
+		Blessings:           player.Blessings,
+		Onlinetime:          player.OnlineTime,
+		Deletion:            player.Deletion,
+		Balance:             player.Balance,
+		Stamina:             player.Stamina,
+		SkillFist:           player.SkillFist,
+		SkillFistTries:      player.SkillFistTries,
+		SkillClub:           player.SkillClub,
+		SkillClubTries:      player.SkillClubTries,
+		SkillSword:          player.SkillSword,
+		SkillSwordTries:     player.SkillSwordTries,
+		SkillAxe:            player.SkillAxe,
+		SkillAxeTries:       player.SkillAxeTries,
+		SkillDist:           player.SkillDistance,
+		SkillDistTries:      player.SkillDistanceTries,
+		SkillShielding:      player.SkillShielding,
+		SkillShieldingTries: player.SkillShieldingTries,
+		SkillFishing:        player.SkillFishing,
+		SkillFishingTries:   player.SkillFishingTries,
+		Created:             player.Created,
+		Hidden:              player.Hidden,
+		Comment:             player.Comment,
+	}
+}

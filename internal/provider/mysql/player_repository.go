@@ -28,5 +28,5 @@ func (r *MySQLPlayerRepository) FindByID(ctx context.Context, id int) (*domain.P
 		}
 		return nil, result.Error
 	}
-	return PlayertoDomain(&entity), nil
+	return PlayerToDomain(&entity), nil
 }
