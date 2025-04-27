@@ -227,8 +227,6 @@ This standardizes API behavior and lets clients handle errors easily.
 | Open/Closed | Add new services or endpoints without modifying existing ones |
 | Separation of Concerns | Domain models are isolated from transport and persistence |
 
-✅ The project is aligned to production-level software architecture standards.
-
 ---
 
 # Future Improvements (Roadmap)
@@ -247,20 +245,4 @@ This standardizes API behavior and lets clients handle errors easily.
 This project is designed to be **clean, professional, extensible**, and **scalable**.
 It applies strong software engineering principles while remaining practical for real-world game server and API needs.
 
----
-
-# Contacts
-
-Built by Danilo Pucci.
-Feel free to contribute, suggest improvements, or use this architecture as a solid base for your own production-grade Go services.
-
----
-
-# License
-
-[MIT License](LICENSE)
-
----
-
-> "First make it work, then make it clean, then make it fast." — Kent Beck
 
