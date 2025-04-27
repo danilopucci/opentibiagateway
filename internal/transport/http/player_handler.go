@@ -41,6 +41,8 @@ func (h *PlayerHandler) GetPlayer(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	playerResponse := MapPlayerToResponse(resp.Player)
+
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(resp.Player)
+	json.NewEncoder(w).Encode(playerResponse)
 }
