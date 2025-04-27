@@ -1,6 +1,19 @@
 # OpenTibia Gateway
 
+
+**OpenTibia Gateway** is a service responsible for mediating communication between:
+- A **gRPC backend server** (business logic and database access)
+- An **HTTP API** (frontend-friendly API)
+
+It acts as a gateway layer, decoupling database logic from external access and offering a clear, extensible and secure API surface.
+
+**Main responsibilities:**
+- Serve a gRPC API for internal trusted services.
+- Serve a RESTful HTTP API for external clients (e.g., websites, bots, UIs).
+- Maintain clear separation between transport, domain, and persistence layers.
+
 ---
+
 
 # Architecture Overview
 
@@ -46,22 +59,9 @@
 +-------------------------+
 ```
 
----
-
-# Project Overview
-
-**OpenTibia Gateway** is a service responsible for mediating communication between:
-- A **gRPC backend server** (business logic and database access)
-- An **HTTP API** (frontend-friendly API)
-
-It acts as a gateway layer, decoupling database logic from external access and offering a clear, extensible and secure API surface.
-
-**Main responsibilities:**
-- Serve a gRPC API for internal trusted services.
-- Serve a RESTful HTTP API for external clients (e.g., websites, bots, UIs).
-- Maintain clear separation between transport, domain, and persistence layers.
 
 ---
+
 
 # Key Design Choices
 
