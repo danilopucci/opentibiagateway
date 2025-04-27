@@ -1,0 +1,42 @@
+# Go build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go coverage profiles
+*.coverprofile
+
+# Vendor directory (if using go mod vendor)
+vendor/
+
+# Module cache (in case accidentally added)
+.gopath/
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Editor and IDE settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Wasm build output (if using WebAssembly)
+*.wasm
+
+# Cache directories
+.cache/
+dist/
+build/
+
+# Environment files (keep secrets out)
+.env

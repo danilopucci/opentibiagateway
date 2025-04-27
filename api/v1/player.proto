@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package api.v1;
+
+option go_package = "github.com/danilopucci/opentibiagateway/api/v1;v1";
+
+service PlayerService {
+  rpc GetPlayer (GetPlayerPointsRequest) returns (GetPlayerResponse);
+}
+
+message GetPlayerRequest {
+  oneof identifier {
+    int32 id = 1;
+    string name = 2;
+  }
+}
+
+message GetPlayerResponse {
+  Player player = 1;
+}
+
+message Player {
+  int32 id = 1;
+  string name = 2;
+  int32 group_id = 3;
+  int32 account_id = 4;
+  int32 level = 5;
+  int32 vocation = 6;
+  int32 health = 7;
+  int32 healthmax = 8;
+  uint64 experience = 9;
+  int32 lookbody = 10;
+  int32 lookfeet = 11;
+  int32 lookhead = 12;
+  int32 looklegs = 13;
+  int32 looktype = 14;
+  int32 lookaddons = 15;
+  int32 maglevel = 16;
+  int32 mana = 17;
+  int32 manamax = 18;
+  uint64 manaspent = 19;
+  uint32 soul = 20;
+  int32 town_id = 21;
+  int32 posx = 22;
+  int32 posy = 23;
+  int32 posz = 24;
+  bytes conditions = 25;
+  int32 cap = 26;
+  int32 sex = 27;
+  uint64 lastlogin = 28;
+  uint32 lastip = 29;
+  bool save = 30;
+  int32 skull = 31;
+  int64 skulltime = 32;
+  uint64 lastlogout = 33;
+  int32 blessings = 34;
+  int64 onlinetime = 35;
+  int64 deletion = 36;
+  uint64 balance = 37;
+  uint32 stamina = 38;
+  uint32 skill_fist = 39;
+  uint64 skill_fist_tries = 40;
+  uint32 skill_club = 41;
+  uint64 skill_club_tries = 42;
+  uint32 skill_sword = 43;
+  uint64 skill_sword_tries = 44;
+  uint32 skill_axe = 45;
+  uint64 skill_axe_tries = 46;
+  uint32 skill_dist = 47;
+  uint64 skill_dist_tries = 48;
+  uint32 skill_shielding = 49;
+  uint64 skill_shielding_tries = 50;
+  uint32 skill_fishing = 51;
+  uint64 skill_fishing_tries = 52;
+  int32 created = 53;
+  bool hidden = 54;
+  string comment = 55;
+}
