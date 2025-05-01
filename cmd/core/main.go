@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
-	"log"
+	"log/slog"
 	"net"
+	"os"
 
+	internalLogger "github.com/danilopucci/opentibiagateway/internal/pkg/logger"
 	gatewaypb "github.com/danilopucci/opentibiagateway/internal/protogen/v1"
 	"github.com/danilopucci/opentibiagateway/internal/provider/mysql"
 	"github.com/danilopucci/opentibiagateway/internal/service"
@@ -17,43 +19,53 @@ import (
 // TODO:
 // - adicionar o config.yaml - carrega as variaveis de config
 // - adicionar um fluxo completo do get player by ID, com GRPC e http server
-// - adicionar um logger descente
 // - adicionar testes unitarios
 
 const dotEnvFileNamePath = "./../../.env"
 
 func main() {
 
+	logger := internalLogger.NewLoggerBuilder().
+		WithTextColorOutput().
+		WithLogLevel(slog.LevelDebug).
+		Build()
+
 	err := godotenv.Load(dotEnvFileNamePath)
 	if err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
+		logger.Errorw("error loading .env file", err,
+			slog.String("path", dotEnvFileNamePath),
+		)
+		os.Exit(1)
 	}
 
 	dsn := mysql.GenerateDsnFromEnv()
 
 	mysqlDatabase, err := mysql.NewMySqlDatabase(dsn)
 	if err != nil {
-		log.Fatalf("Error connecting to database: %v", err)
+		logger.Errorw("error connecting to mysql database", err)
+		os.Exit(1)
 	}
 
 	playerRepository := mysql.NewMySQLPlayerRepository(mysqlDatabase)
 	playerService := service.NewPlayerService(playerRepository)
 
-	// Setup gRPC server
-	lis, err := net.Listen("tcp", ":50051")
-	if err != nil {
-		log.Fatalf("Failed to listen: %v", err)
-	}
-
 	s := grpc.NewServer()
-
 	grpcServer := gatewayGrpcServer.NewGrpcServer(playerService)
-
 	gatewaypb.RegisterPlayerServiceServer(s, grpcServer)
 
-	fmt.Println("gRPC server started on port 50051")
+	// Setup gRPC server
+	port := 50051
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
+	if err != nil {
+		logger.Errorw("error listening on tcp port", err, slog.Int("port", port))
+		os.Exit(1)
+	}
+
+	logger.Info("grpc server started", slog.Int("port", port))
+
 	if err := s.Serve(lis); err != nil {
-		log.Fatalf("Failed to serve: %v", err)
+		logger.Errorw("error serving grpc server", err, slog.Int("port", port))
+		os.Exit(1)
 	}
 
 }

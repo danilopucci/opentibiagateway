@@ -13,7 +13,7 @@ import (
 
 // NewDB creates and returns a GORM DB instance
 func NewMySqlDatabase(dsn string) (*gorm.DB, error) {
-	// Optional: customize logger
+
 	gormLogger := logger.New(
 		log.New(log.Writer(), "\r\n", log.LstdFlags),
 		logger.Config{
@@ -39,7 +39,6 @@ func NewMySqlDatabase(dsn string) (*gorm.DB, error) {
 		return nil, fmt.Errorf("database ping failed: %w", err)
 	}
 
-	log.Println("Connected to MySQL using GORM")
 	return db, nil
 }
 
